@@ -10,7 +10,7 @@ class Solution:
         else:
             return False
 
-        # 내 첫 풀이
+        # 내 첫 풀이!
 
 s = Solution()
 print(s.isPalindrome("A man, a plan, a canal: Panama"))
