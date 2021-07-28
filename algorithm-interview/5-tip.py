@@ -16,4 +16,4 @@ def fn(s):
     return s[0], s[-1]
 
 print(sorted(a, key=fn))
-print(sorted(a, key=lambda s: (s[0], s[-1])))
+print(sorted(a, key=lambda s: (s[0], s[-1]))) # 똑같은 기능 람다식으로 이때는 괄호를 사용한다
