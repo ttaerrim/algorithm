@@ -1,3 +1,5 @@
+# 리스트 사용한 나의 풀이
+
 from typing import Optional
 
 class ListNode:
