@@ -6,7 +6,7 @@ def find(place):
     for i, row in enumerate(place):
         for j, dot in enumerate(row):
             p_array = []
-            if dot == "O":
+            if dot == "O" or dot == "P":
                 if (i > 0):
                     p_array.append(place[i-1][j])
                 if (i < SIZE - 1):
@@ -15,20 +15,8 @@ def find(place):
                     p_array.append(place[i][j-1])
                 if (j < SIZE - 1):
                     p_array.append(place[i][j+1])
-                p_count = p_array.count('P')
-                if p_count >= 2:
-                    return False
-            if dot == "P":
-                if (i > 0):
-                    p_array.append(place[i-1][j])
-                if (i < SIZE - 1):
-                    p_array.append(place[i+1][j])
-                if (j > 0):
-                    p_array.append(place[i][j-1])
-                if (j < SIZE - 1):
-                    p_array.append(place[i][j+1])
-                p_count = p_array.count('P')
-                if p_count >= 1:
+                p_count = p_array.count("P")
+                if (dot == "O" and p_count >= 2) or (dot == "P" and p_count >= 1):
                     return False
     return True
 
