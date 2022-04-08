@@ -7,15 +7,13 @@ def solution(progresses, speeds):
         for i in range(len(progresses)):
             if progresses[i] < 100:
                 progresses[i] += speeds[i]
-        while len(progresses) != 0:
-            if (progresses[0] >= 100):
-                progresses.pop(0)
-                speeds.pop(0)
-                count += 1
-            else:
-                break
+        while (len(progresses) != 0 and progresses[0] >= 100):
+            print("pop: ", progresses.pop(0))
+            speeds.pop(0)
+            count += 1
         if count != 0:
             answer.append(count)
+
     return answer
 
 
