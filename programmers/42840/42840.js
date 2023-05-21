@@ -55,3 +55,33 @@ function solution(answers) {
 
   return answer;
 }
+
+function solution(answers) {
+  const supojas = [
+    [1, 2, 3, 4, 5],
+    [2, 1, 2, 3, 2, 4, 2, 5],
+    [3, 3, 1, 1, 2, 2, 4, 4, 5, 5],
+  ];
+
+  const answer = [];
+
+  const spj1 = answers.filter(
+    (ans, i) => ans === supojas[0][i % supojas[0].length]
+  ).length;
+  const spj2 = answers.filter(
+    (ans, i) => ans === supojas[1][i % supojas[1].length]
+  ).length;
+  const spj3 = answers.filter(
+    (ans, i) => ans === supojas[2][i % supojas[2].length]
+  ).length;
+
+  const spjs = [spj1, spj2, spj3];
+
+  for (let i = 0; i < spjs.length; i++) {
+    if (spjs[i] === Math.max(...spjs)) {
+      answer.push(i + 1);
+    }
+  }
+
+  return answer;
+}
