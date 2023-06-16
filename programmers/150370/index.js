@@ -1,43 +1,28 @@
 function solution(today, terms, privacies) {
   const valids = {};
 
+  const [ty, tm, td] = today.split(".").map(Number);
+  const todayNum = ty * 12 * 28 + tm * 28 + td;
+
   for (let i of terms) {
-    const term = i.split(" ");
-    valids[term[0]] = term[1];
+    const [type, period] = i.split(" ");
+    valids[type] = Number(period);
   }
 
+  const a = [];
   const answers = privacies.map((i) => {
     {
-      const privacy = i.split(" ");
-      const period = valids[`${privacy[1]}`];
-      const date = privacy[0].split(".").map((d) => Number(d));
-      date[1] += Number(period);
+      const [date, type] = i.split(" ");
 
-      if (date[1] > 12) {
-        const y = Math.floor(date[1] / 12);
+      const period = valids[type];
+      const [y, m, d] = date.split(".").map(Number);
 
-        date[1] = date[1] % 12;
-        date[0] += y;
-      }
-
-      if (date[2] === 1) {
-        date[1] -= 1;
-        date[2] = 28;
-      } else {
-        date[2] -= 1;
-      }
-
-      if (date[1] === 0) {
-        date[0] -= 1;
-        date[1] = 12;
-      }
-      return date.join(".");
+      return y * 12 * 28 + m * 28 + d + Number(period) * 28;
     }
   });
 
-  const a = [];
-  const answer = answers.map((i, idx) => {
-    if (new Date(i) < new Date(today)) {
+  answers.forEach((i, idx) => {
+    if (i <= todayNum) {
       a.push(idx + 1);
     }
   });
