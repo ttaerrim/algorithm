@@ -1,11 +1,13 @@
 a, b = map(int, input().split())
 
+swap = -1
 if (a > b):
     a, b = b, a
     
-answers = []
-for i in range(a+1, b):
-    answers.append(i)
+if (a == b or b - a == 1):
+    print(0)
 
-print(len(answers))
-print(' '.join(map(str, answers)))
+else:
+    print(b-a-1)
+    for i in range(a+1, b):
+        print(i, end=" ")
