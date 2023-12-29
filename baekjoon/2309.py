@@ -22,3 +22,14 @@ dwarfs.remove(secondDwarf)
 
 for i in range(len(dwarfs)):
     print(sorted(dwarfs)[i])
+
+
+################### python 라이브러리 사용
+import itertools
+dwarfs = [int(input()) for _ in range(9)]
+
+for i in itertools.combinations(dwarfs, 7):
+    if (sum(i) == 100):
+        for j in sorted(i):
+            print(j)
+        break
