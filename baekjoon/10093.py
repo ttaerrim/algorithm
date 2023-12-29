@@ -1,10 +1,7 @@
 a, b = map(int, input().split())
 
-swap = -1
 if (a > b):
-    swap = a
-    a = b
-    b = swap
+    a, b = b, a
     
 answers = []
 for i in range(a+1, b):
