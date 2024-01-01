@@ -10,3 +10,19 @@ for i in range(len(n)):
 numbers[6] = math.ceil(numbers[6]/2) 
 print(max(numbers))
     
+############## 다른 풀이
+
+n = int(input())
+numbers = [0 for _ in range(10)]
+
+while(n>0):
+    numbers[n%10]+=1
+    n = n//10
+
+ans=-1
+for i in range(10):
+    if(i==6 or i==9): continue
+    ans = max(ans,numbers[i])
+
+
+print(max(ans, (numbers[6]+numbers[9]+1)//2))
