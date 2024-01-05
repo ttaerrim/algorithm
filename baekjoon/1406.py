@@ -1,14 +1,15 @@
+import sys
+
 class Node(object):
     def __init__(self, data, prev = None, next = None):
         self.data = data
         self.prev = prev
         self.next = next
 
-class DList(object):
+class LinkedList(object):
     def __init__(self):
         self.head = Node(None)
-        self.tail = Node(None, self.head)
-        self.head.next = self.tail
+        self.tail = Node(None)
         self.size = 0
     
     def listSize(self):
@@ -55,7 +56,6 @@ class DList(object):
         if self.is_empty():
             self.head = Node(value)
             self.tail = Node(None, self.head)
-            self.head.next = self.tail
         else:
             tmp = self.tail.prev
             newNode = Node(value, tmp, self.tail)
@@ -77,10 +77,10 @@ class DList(object):
             elif tmp == self.tail:
                 self.append(value)
             else:
-                tmp_prev = tmp.prev
-                newNode = Node(value, tmp_prev, tmp)
-                tmp_prev.next = newNode
-                tmp.prev = newNode
+                tmp_next = tmp.next
+                newNode = Node(value, tmp, tmp_next)
+                tmp_next.prev = newNode
+                tmp.next = newNode
         self.size += 1
         
     def delete(self, idx):
@@ -107,7 +107,35 @@ class DList(object):
         target = self.head
         while target != self.tail:
             if target.next != self.tail:
-                print(target.data, '<=> ', end='')
+                print(target.data, end='')
             else:
                 print(target.data)
             target = target.next
+
+
+w = sys.stdin.readline().strip()
+n = int(sys.stdin.readline().strip())
+
+linked_list = LinkedList()
+for s in w:
+    linked_list.append(s)
+
+
+cursor = len(w) - 1
+for _ in range(n):
+    c = sys.stdin.readline().strip().split()
+    if (c[0] == 'P'):
+        linked_list.insert(c[1], cursor)
+        cursor += 1
+    elif (c[0] == 'L'):
+        if (cursor >= 0): 
+            cursor -= 1
+    elif (c[0] == 'D'):
+        if (cursor < linked_list.listSize() - 1 and linked_list.selectNode(cursor) != linked_list.tail):
+            cursor += 1
+    elif (c[0] == 'B'):
+        if (cursor >= 0):
+            linked_list.delete(cursor)
+            cursor -= 1
+            
+linked_list.printlist()
