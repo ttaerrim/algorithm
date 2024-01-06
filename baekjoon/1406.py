@@ -1,141 +1,106 @@
 import sys
-
-class Node(object):
-    def __init__(self, data, prev = None, next = None):
-        self.data = data
-        self.prev = prev
-        self.next = next
-
-class LinkedList(object):
+input = sys.stdin.readline
+class DList:
+    class Node:
+        def __init__(self,item,prev=None,next=None):
+            self.item = item
+            self.prev = prev
+            self.next = next
+ 
     def __init__(self):
-        self.head = Node(None)
-        self.tail = Node(None)
-        self.size = 0
-    
-    def listSize(self):
-        return self.size
-    
-    def is_empty(self):
-        if self.size != 0:
-            return False
-        else:
-            return True
-    
-    def selectNode(self, idx):
-        if idx > self.size:
-            print("Overflow: Index Error")
-            return None
-        if idx == 0:
-            return self.head
-        if idx == self.size:
-            return self.tail
-        if idx <= self.size//2:
-            target = self.head
-            for _ in range(idx):
-                target = target.next
-            return target
-        else:
-            target = self.tail
-            for _ in range(self.size - idx):
-                target = target.prev
-            return target
-    
-    def appendleft(self, value):
-        if self.is_empty():
-            self.head = Node(value)
-            self.tail = Node(None, self.head)
-            self.head.next = self.tail
-        else:
-            tmp = self.head
-            self.head = Node(value, None, self.head)
-            tmp.prev = self.head
-        self.size += 1
-            
-    
-    def append(self, value):
-        if self.is_empty():
-            self.head = Node(value)
-            self.tail = Node(None, self.head)
-        else:
-            tmp = self.tail.prev
-            newNode = Node(value, tmp, self.tail)
-            tmp.next = newNode
-            self.tail.prev = newNode
-        self.size += 1
-    
-    def insert(self, value, idx):
-        if self.is_empty():
-            self.head = Node(value)
-            self.tail = Node(None, self.head)
-            self.head.next = self.tail
-        else:
-            tmp = self.selectNode(idx)
-            if tmp == None:
-                return
-            if tmp == self.head:
-                self.appendleft(value)
-            elif tmp == self.tail:
-                self.append(value)
+        self.head = self.Node(None)
+        self.tail = self.Node(None, self.head)
+        self.head.next = self.tail
+        self.cur = self.tail
+ 
+    def insert(self,p,item):
+        t = p.prev
+        n = self.Node(item,t,p)
+        p.prev = n
+        t.next = n
+ 
+    def delete(self,x):
+        f = x.prev
+        r = x.next
+        f.next = r
+        r.prev = f
+ 
+    def print_list(self):
+        p = self.head.next
+        while p != self.tail:
+            if p.next != self.tail:
+                print(p.item, end="")
             else:
-                tmp_next = tmp.next
-                newNode = Node(value, tmp, tmp_next)
-                tmp_next.prev = newNode
-                tmp.next = newNode
-        self.size += 1
-        
-    def delete(self, idx):
-        if self.is_empty():
-            print("Underflow Error")
-            return
-        else:
-            tmp = self.selectNode(idx)
-            if tmp == None:
-                return
-            elif tmp == self.head:
-                tmp = self.head
-                self.head = self.head.next
-            elif tmp == self.tail:
-                tmp = self.tail
-                self.tail = self.tail.prev
-            else:
-                tmp.prev.next = tmp.next
-                tmp.next.prev = tmp.prev
-            del(tmp)
-            self.size -= 1
-    
-    def printlist(self):
-        target = self.head
-        while target != self.tail:
-            if target.next != self.tail:
-                print(target.data, end='')
-            else:
-                print(target.data)
-            target = target.next
+                print(p.item)
+            p = p.next
 
 
 w = sys.stdin.readline().strip()
 n = int(sys.stdin.readline().strip())
 
-linked_list = LinkedList()
+linked_list = DList()
 for s in w:
     linked_list.append(s)
 
+import sys
+input = sys.stdin.readline
+class DList:
+    class Node:
+        def __init__(self,item,prev=None,next=None):
+            self.item = item
+            self.prev = prev
+            self.next = next
+ 
+    def __init__(self):
+        self.head = self.Node(None)
+        self.tail = self.Node(None, self.head)
+        self.head.next = self.tail
+        self.cur = self.tail
+ 
+    def insert(self,p,item):
+        t = p.prev
+        n = self.Node(item,t,p)
+        p.prev = n
+        t.next = n
+ 
+    def delete(self,x):
+        f = x.prev
+        r = x.next
+        f.next = r
+        r.prev = f
+ 
+    def print_list(self):
+        p = self.head.next
+        while p != self.tail:
+            if p.next != self.tail:
+                print(p.item, end="")
+            else:
+                print(p.item)
+            p = p.next
 
-cursor = len(w) - 1
+
+w = sys.stdin.readline().strip()
+n = int(sys.stdin.readline().strip())
+
+linked_list = DList()
+for s in w:
+    linked_list.insert(linked_list.tail, s)
+
+
 for _ in range(n):
     c = sys.stdin.readline().strip().split()
     if (c[0] == 'P'):
-        linked_list.insert(c[1], cursor)
-        cursor += 1
+        linked_list.insert(linked_list.cur, c[1])
     elif (c[0] == 'L'):
-        if (cursor >= 0): 
-            cursor -= 1
+        if (linked_list.cur.prev.prev != None):
+            linked_list.cur = linked_list.cur.prev
     elif (c[0] == 'D'):
-        if (cursor < linked_list.listSize() - 1 and linked_list.selectNode(cursor) != linked_list.tail):
-            cursor += 1
+        if (linked_list.cur.next != None):
+            linked_list.cur = linked_list.cur.next
     elif (c[0] == 'B'):
-        if (cursor >= 0):
-            linked_list.delete(cursor)
-            cursor -= 1
+        if (linked_list.cur.prev.prev != None):
+            linked_list.delete(linked_list.cur.prev)
+
             
-linked_list.printlist()
+linked_list.print_list()
+
