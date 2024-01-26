@@ -14,3 +14,20 @@ def solution(s):
         strs[i] = temp
     
     return " ".join(strs)
+
+# 다른 풀이
+def solution2(s):
+    answer = ''
+    even = True
+    
+    for letter in s:
+        if letter == ' ':
+            answer += letter
+            even = True
+            continue
+        elif even:
+            answer += letter.upper()
+        else:
+            answer += letter.lower()
+        even = not even
+    return answer
