@@ -10,3 +10,18 @@ def solution(s):
                            
             
     return answer
+
+# 다른 풀이
+def solution2(s):
+    answer = []
+    letter2idx = {}
+    for i, letter in enumerate(s):
+        if letter in letter2idx:
+            answer.append(i - letter2idx[letter])
+        else:
+            answer.append(-1)
+        letter2idx[letter] = i
+        
+                           
+            
+    return answer
