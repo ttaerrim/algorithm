@@ -28,3 +28,26 @@ def solution(s):
         answer.append(s[head:idx])
             
     return len(answer)
+
+# 다른 풀이
+def solution2(s):
+    answer = 0
+    
+    firstLetter = s[0]
+    countFirst = countRest = 0
+    
+    for i, letter in enumerate(s):
+        if letter == firstLetter:
+            countFirst += 1
+        else:
+            countRest += 1
+            
+        if countFirst == countRest:
+            answer += 1
+            if i != len(s) - 1:
+                firstLetter = s[i+1]
+            countFirst = countRest = 0
+    if countFirst != countRest:
+        answer += 1
+        
+    return answer
