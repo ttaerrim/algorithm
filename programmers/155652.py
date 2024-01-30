@@ -31,3 +31,20 @@ def solution(s, skip, index):
         answer += chr(idx)
         
     return answer
+
+# 다른 풀이 2
+def solution(s, skip, index):
+    answer = ''
+    
+    for letter in s:
+        count = index
+        while count:
+            if letter == 'z': # 다른 풀이 1에서 ord('z') == 122보다 크면 변경한 것 대신에 letter 문자를 가지고 풀이
+                letter = 'a'
+            else:
+                letter = chr(ord(letter) + 1)
+            if letter not in skip:
+                count -= 1
+        answer += letter
+        
+    return answer
