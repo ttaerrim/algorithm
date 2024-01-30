@@ -13,3 +13,21 @@ def solution(s, skip, index):
         idx = (alphabet.index(letter) + index) % len(alphabet)
         answer += alphabet[idx]
     return answer
+
+
+# 다른 풀이 1
+def solution(s, skip, index):
+    answer = ''
+    
+    for letter in s:
+        idx = ord(letter)
+        count = index
+        while count:
+            idx += 1
+            if idx > ord('z'):
+                idx = idx%ord('z') + 96
+            if chr(idx) not in skip:
+                count -= 1
+        answer += chr(idx)
+        
+    return answer
