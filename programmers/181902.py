@@ -30,3 +30,16 @@ def solution(my_string):
         answer.append(letters[chr(x)])
     
     return answer
+
+# 다른 풀이 3
+from collections import Counter
+
+def solution(my_string):
+    letters = Counter(my_string) # 숫자를 셀 때는 Counter 사용하면 훨씬 쉽다
+    answer = []
+    for x in range(ord('A'), ord('Z')+1):
+        answer.append(letters[chr(x)])
+    for x in range(97, 123):
+        answer.append(letters[chr(x)])
+    
+    return answer
